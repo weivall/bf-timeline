@@ -71,7 +71,7 @@ message Score {
         string halfTimeScore = 3;
         string fullTimeScore = 4;
         string penaltiesScore = 5;
-        // repeated int32 penaltiesSequence = 6;
+        repeated string penaltiesSequence = 6;
         string games = 7;
         string sets = 8;
         int32 numberOfYellowCards = 9;
