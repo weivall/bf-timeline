@@ -42,6 +42,8 @@ enum UpdateType {
     FirstHalfEnd = 4;
     SecondHalfEnd = 5;
     SecondHalfKickOff = 6;
+    MissedPenalty = 7;
+    Penalties = 8;
 }
 
 message UpdateDetail {
