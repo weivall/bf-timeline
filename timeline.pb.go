@@ -21,6 +21,11 @@ import fmt "fmt"
 import math "math"
 import google_protobuf "github.com/golang/protobuf/ptypes/timestamp"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -242,6 +247,78 @@ func init() {
 	proto.RegisterEnum("timeline.UpdateType", UpdateType_name, UpdateType_value)
 	proto.RegisterEnum("timeline.TimelineReport_Status", TimelineReport_Status_name, TimelineReport_Status_value)
 	proto.RegisterEnum("timeline.UpdateDetail_Team", UpdateDetail_Team_name, UpdateDetail_Team_value)
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion3
+
+// Client API for Timeline service
+
+type TimelineClient interface {
+	GetTimelineData(ctx context.Context, in *TimelineRequest, opts ...grpc.CallOption) (*TimelineReport, error)
+}
+
+type timelineClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewTimelineClient(cc *grpc.ClientConn) TimelineClient {
+	return &timelineClient{cc}
+}
+
+func (c *timelineClient) GetTimelineData(ctx context.Context, in *TimelineRequest, opts ...grpc.CallOption) (*TimelineReport, error) {
+	out := new(TimelineReport)
+	err := grpc.Invoke(ctx, "/timeline.Timeline/GetTimelineData", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for Timeline service
+
+type TimelineServer interface {
+	GetTimelineData(context.Context, *TimelineRequest) (*TimelineReport, error)
+}
+
+func RegisterTimelineServer(s *grpc.Server, srv TimelineServer) {
+	s.RegisterService(&_Timeline_serviceDesc, srv)
+}
+
+func _Timeline_GetTimelineData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TimelineRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TimelineServer).GetTimelineData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/timeline.Timeline/GetTimelineData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TimelineServer).GetTimelineData(ctx, req.(*TimelineRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Timeline_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "timeline.Timeline",
+	HandlerType: (*TimelineServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetTimelineData",
+			Handler:    _Timeline_GetTimelineData_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: fileDescriptor0,
 }
 
 func init() { proto.RegisterFile("timeline.proto", fileDescriptor0) }
