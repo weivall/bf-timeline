@@ -65,6 +65,14 @@ message Score {
     ScoreDetail home = 1;
     ScoreDetail away = 2;
 
+    int32 numberOfYellowCards = 3;
+    int32 numberOfRedCards = 4;
+    int32 numberOfCards = 5;
+    int32 numberOfCorners = 6;
+    int32 numberOfCornersFirstHalf = 7;
+    int32 numberOfCornersSecondHalf = 8;
+    int32 bookingPoints = 9;
+
     message ScoreDetail {
         string name = 1;
         string score = 2;
