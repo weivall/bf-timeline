@@ -55,6 +55,7 @@ message UpdateDetail {
     int32 elapsedRegularTime = 6;
     UpdateType type = 7;
     UpdateType updateType = 8;
+    int32 elapsedAddedTime = 9;
 
     enum Team {
         home = 0;
