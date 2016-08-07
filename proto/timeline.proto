@@ -2,7 +2,15 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
-package soccer;
+package timeline;
+
+service Timeline {
+    rpc GetTimelineData (TimelineRequest) returns (TimelineReport) {}
+}
+
+message TimelineRequest {
+    uint64 eventId = 1;
+}
 
 message TimelineReport {
     uint32 eventTypeId = 1;
