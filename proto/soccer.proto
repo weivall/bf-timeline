@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package soccer;
+
+message TimelineReport {
+    uint32 eventTypeId = 1;
+    uint64 eventId = 2;
+    Score score = 3;
+    int32 timeElapsed = 4;
+    int32 elapsedRegularTime = 5;
+    repeated UpdateDetail updateDetails = 6;
+    Status status = 7;
+    UpdateType inPlayMatchStatus = 8;
+
+    message FullTimeElapsed {
+        int32 hour = 1;
+        int32 min = 2;
+        int32 sec = 3;
+    }
+
+    enum Status {
+        IN_PLAY = 0;
+        COMPLETE = 1;
+    }
+}
+
+enum UpdateType {
+    KickOff = 0;
+    Goal = 1;
+    YellowCard = 2;
+    RedCard = 3;
+    FirstHalfEnd = 4;
+    SecondHalfEnd = 5;
+    SecondHalfKickOff = 6;
+}
+
+message UpdateDetail {
+    google.protobuf.Timestamp updateTime = 1;
+    int32 updateId = 2;
+    Team team = 3;
+    string teamName = 4;
+    int32 matchTime = 5;
+    int32 elapsedRegularTime = 6;
+    UpdateType type = 7;
+    UpdateType updateType = 8;
+
+    enum Team {
+        home = 0;
+        away = 1;
+    }
+}
+
+message Score {
+
+    ScoreDetail home = 1;
+    ScoreDetail away = 2;
+
+    message ScoreDetail {
+        string name = 1;
+        int32 score = 2;
+        int32 halfTimeScore = 3;
+        int32 fullTimeScore = 4;
+        int32 penaltiesScore = 5;
+        repeated int32 penaltiesSequence = 6;
+        int32 games = 7;
+        int32 sets = 8;
+        int32 numberOfYellowCards = 9;
+        int32 numberOfRedCards = 10;
+        int32 numberOfCards = 11;
+        int32 numberOfCorners = 12;
+        int32 numberOfCornersFirstHalf = 13;
+        int32 numberOfCornersSecondHalf = 14;
+        int32 bookingPoints = 15;
+    }
+}
